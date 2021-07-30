@@ -13,9 +13,7 @@
                     Name : <i class="text text-danger">{{Auth::user()->name}}</i><br/>
                     Nik &nbsp; &nbsp; &nbsp;: {{Auth::user()->nik}}
                         <div class="float-right">
-                            <span class="badge bg-warning">Exl</span>
-                            <span class="badge bg-warning">Pdf</span>
-                            <span class="badge bg-warning">Print</span>  
+                           <a href="{{route('print')}}" target="_blank" class="btn btn-danger">Print</a>   
                       </div>
                     </div><br/>
                     <table class="table responsive table-bordered table-striped table-sm">
