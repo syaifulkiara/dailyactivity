@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Models\User;
 use Auth;
 use Hash;
@@ -76,21 +77,18 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($request->hasFile('avatar')){
-            $avataruploaded = request()->file('avatar');
-            $avatarname = time().'.'. $avataruploaded->getClientOriginalExtension();
-            $avatarpath = public_path('/images/avatar/');
-            $avataruploaded->move($avatarpath, $avatarname);
+        $users = User::find($id);
+         $users->name = $request->name;
+         if($request->file('avatar')) {
+             $file = $request->file('avatar');
+             $avatarname = time().str_replace(" ", "", $file->getClientOriginalName());
+             $file->move('images/avatar', $avatarname);
 
-             $users = User::find($id);
-             $users->name = $request->name;
-             $users->avatar ='/images/avatar/'.$avatarname;
-             $users->save();
-        }else{
-             $users = User::find($id);
-             $users->name = $request->name;
-             $users->save();
-        }
+             File::delete(public_path($users->avatar));
+             $users->avatar = '/images/avatar/'.$avatarname;
+         }
+
+        $users->save();
         activity()->log('memperbaharui profile');
         return redirect()->route('profile');
     }
@@ -105,24 +103,6 @@ class ProfileController extends Controller
     {
         //
     }
-
-    public function changeavatar(Request $request)
-    {
-        if($request->hasFile('avatar')){
-            $avataruploaded = request()->file('avatar');
-            $avatarname = time().'.'. $avataruploaded->getClientOriginalExtension();
-            $avatarpath = public_path('/images/avatar/');
-            $avataruploaded->move($avatarpath, $avatarname);
-
-            Auth()->user()->update([
-                'id_user'   => Auth::user()->id,
-                'avatar' =>'/images/avatar/' .$avatarname
-            ]);
-        }
-        activity()->log('memperbaharui foto profile');
-        return redirect()->route('profile.index');
-    }
-
 
     /**
      * Remove the specified resource from storage.
