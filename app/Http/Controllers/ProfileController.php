@@ -82,7 +82,7 @@ class ProfileController extends Controller
          if($request->file('avatar')) {
              $file = $request->file('avatar');
              $avatarname = time().str_replace(" ", "", $file->getClientOriginalName());
-             $file->move('images/avatar', $avatarname);
+             $file->move('public/images/avatar', $avatarname);
 
              File::delete(public_path($users->avatar));
              $users->avatar = '/images/avatar/'.$avatarname;
