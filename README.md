@@ -11,6 +11,7 @@
 
 - Auth bootstrap<br/>
 - Register with avatar<br/>
+- Login with Username or Email<br/>
 - ActivityLog<br/>
 - Create ,Read ,Update ,Delete Activity<br/>
 - Change Profile Avatar<br/>
