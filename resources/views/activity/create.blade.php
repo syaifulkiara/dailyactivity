@@ -21,12 +21,12 @@
                         </div>
                         <div class="form mb-2">
                             <label class="mb-0">Start</label>
-                            <input type="text" class="form-control" name="start" data-inputmask="'mask': '99:99'">
+                            <input type="text" id="input_start" class="form-control" name="start" data-inputmask="'mask': '99:99'">
                             <label class="text-danger">Misal {{date('H.i')}}</label>
                         </div>
                         <div class="form mb-2">
                             <label class="mb-0">Finish</label>
-                            <input type="text" class="form-control" name="finish">
+                            <input type="text" id="input_finish" class="form-control" name="finish" data-inputmask="'mask': '99:99'">
                         </div>
                         <div class="form mb-2">
                             <label class="mb-0">Activity</label>
@@ -49,3 +49,25 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+<script>
+    $('#input_start').inputmask({
+        mask: 'SJ-AAA-****-99999',
+        definitions: {
+            A: {
+                validator: "[A-Za-z0-9 ]"
+            },
+        },            
+    });
+    $('#input_finish').inputmask({
+        mask: 'SJ-AAA-****-99999',
+        definitions: {
+            A: {
+                validator: "[A-Za-z0-9 ]"
+            },
+        },            
+    });
+</script>
+@endpush
